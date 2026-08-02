@@ -4,13 +4,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.miformacionctma.ui.theme.MiFormacionCTMATheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +25,45 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MiFormacionCTMATheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                PantallaInicio()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun PantallaInicio(nombre: String = "Aprendiz") {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Mi Formación CTMA",
+            style = MaterialTheme.typography.headlineMedium
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Text(text = "Hola, $nombre")
+        Text(text = "Aquí organizarás actividades y evidencias.")
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Card {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text("Próximo compromiso")
+                Text("Configurar Android Studio")
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun PantallaInicioPreview() {
     MiFormacionCTMATheme {
-        Greeting("Android")
+    PantallaInicio()
     }
 }
