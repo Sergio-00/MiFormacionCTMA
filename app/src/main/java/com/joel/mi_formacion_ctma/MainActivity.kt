@@ -18,22 +18,74 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import domain.ReglasActividad
+import model.ActividadFormativa
+import model.Prioridad
 import com.joel.mi_formacion_ctma.ui.theme.MiFormacionCTMATheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val actividades = listOf(
+            ActividadFormativa(
+                id = 1,
+                titulo = "Clase de Wilson 1 porque solo Wilson da clases",
+                descripcion = "Variables y funciones",
+                progreso = 40,
+                diasRestantes = 5,
+                prioridad = Prioridad.MEDIA
+            ),
+            ActividadFormativa(
+                id = 2,
+                titulo = "Clase de Wilson 2",
+                descripcion = "Android Studio",
+                progreso = 90,
+                diasRestantes = 2,
+                prioridad = Prioridad.BAJA
+            ),
+            ActividadFormativa(
+                id = 3,
+                titulo = "Programación Orientada a Objetos",
+                descripcion = "Clases y objetos",
+                progreso = 100,
+                diasRestantes = -1,
+                prioridad = Prioridad.ALTA
+            )
+        )
+        val actividadesOrdenadas = ReglasActividad.ordenarActividades(actividades)
+
+        val promedio = ReglasActividad.promedioProgreso(actividades)
+        val urgentes = ReglasActividad.actividadesUrgentes(actividades)
+
+        val listaOrdenada = actividadesOrdenadas.joinToString("\n") {
+            "• ${it.titulo}"
+        }
+
+        val resumen = buildString {
+            appendLine("Total actividades: ${actividades.size}")
+            appendLine("Promedio de progreso: ${"%.1f".format(promedio)}%")
+            appendLine("Actividades urgentes: ${urgentes.size}")
+            appendLine()
+            appendLine("Actividades ordenadas:")
+            append(listaOrdenada)
+        }
+
         setContent {
             MiFormacionCTMATheme {
-                PantallaInicio()
+                PantallaInicio(resumen = resumen)
             }
         }
     }
 }
 
 @Composable
-fun PantallaInicio(nombre: String = "Aprendiz") {
+fun PantallaInicio(
+    nombre: String = "Aprendiz",
+    resumen: String
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -62,8 +114,15 @@ fun PantallaInicio(nombre: String = "Aprendiz") {
             Column(
                 modifier = Modifier.padding(16.dp)
             ) {
-                Text("Próximo compromiso")
-                Text("Entrega de evidencia - Mañana")
+
+                Text(
+                    text = "Resumen de actividades",
+                    style = MaterialTheme.typography.titleMedium
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(text = resumen)
             }
         }
     }
@@ -73,6 +132,12 @@ fun PantallaInicio(nombre: String = "Aprendiz") {
 @Composable
 fun PantallaInicioPreview() {
     MiFormacionCTMATheme {
-        PantallaInicio()
+        PantallaInicio(
+            resumen = """
+                Total actividades: 3
+                Promedio de progreso: 76.7%
+                Actividades urgentes: 1
+            """.trimIndent()
+        )
     }
 }

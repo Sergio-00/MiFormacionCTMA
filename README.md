@@ -39,3 +39,15 @@ Los aprendices suelen gestionar múltiples actividades, evidencias y fechas de e
 > Como instructor, quiero visualizar el estado de las actividades para realizar seguimiento al progreso de los aprendices.
 
 **Criterio de aceptación:** Cada actividad muestra un estado identificable como pendiente o completada.
+
+## Reto adicional: Ordenamiento de actividades Semana 2
+
+Se implementó un ordenamiento personalizado para las actividades aplicando varios criterios mediante un comparador.
+
+El primer criterio coloca las actividades vencidas al inicio de la lista. Para ello se comprueba el estado de cada actividad utilizando la función `estadoActividad()`, dando prioridad a aquellas cuyo estado sea `VENCIDA`.
+
+El segundo criterio ordena las actividades según su prioridad, colocando primero las de prioridad `ALTA`, después las de prioridad `MEDIA` y finalmente las de prioridad `BAJA`.
+
+El último criterio se aplica cuando dos actividades tienen la misma prioridad. En ese caso se ordenan por el número de días restantes (`diasRestantes`), mostrando primero las actividades con menos días disponibles, ya que tienen una fecha límite más cercana.
+
+El comparador utilizado combina `compareBy`, `thenByDescending` y `thenBy` dentro de `sortedWith` para aplicar los criterios en el orden indicado por la guia. `compareBy` establece el criterio principal, `thenByDescending` agrega un criterio secundario de forma descendente y `thenBy` agrega un último criterio ascendente si los anteriores son iguales.
