@@ -22,6 +22,8 @@ import domain.ReglasActividad
 import model.ActividadFormativa
 import model.Prioridad
 import com.joel.mi_formacion_ctma.ui.theme.MiFormacionCTMATheme
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 class MainActivity : ComponentActivity() {
 
@@ -43,7 +45,7 @@ class MainActivity : ComponentActivity() {
                 titulo = "Clase de Wilson 2",
                 descripcion = "Android Studio",
                 progreso = 90,
-                diasRestantes = 2,
+                diasRestantes = 3,
                 prioridad = Prioridad.BAJA
             ),
             ActividadFormativa(
@@ -89,8 +91,9 @@ fun PantallaInicio(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(24.dp),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Top
     ) {
 
         Text(
@@ -123,6 +126,59 @@ fun PantallaInicio(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(text = resumen)
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+
+                Text(
+                    text = "Scrum: Valores y Principios",
+                    style = MaterialTheme.typography.titleMedium
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = """
+                    ¿Qué es Scrum?
+                    Scrum es un marco de trabajo ágil que permite gestionar proyectos de manera iterativa e incremental, promoviendo la colaboración, la adaptación al cambio y la entrega continua de valor.
+                    
+                    Valores de Scrum
+                    
+                    1. Compromiso: Los integrantes del equipo se comprometen a alcanzar los objetivos establecidos.
+                    
+                    2. Enfoque: El equipo concentra sus esfuerzos en el trabajo del Sprint y las metas definidas.
+                    
+                    3. Apertura: Se fomenta la transparencia y la comunicación honesta entre todos los participantes.
+                    
+                    4. Respeto: Cada miembro valora las capacidades, opiniones y aportes de los demás.
+                    
+                    5. Valentía: El equipo tiene la capacidad de enfrentar problemas, desafíos y cambios.
+                    
+                    Principios de Scrum
+                    
+                    1. Control empírico del proceso: Las decisiones se basan en la observación, inspección y adaptación.
+                    
+                    2. Autoorganización: Los equipos gestionan su propio trabajo y toman decisiones de manera autónoma.
+                    
+                    3. Colaboración: Se promueve el trabajo conjunto entre clientes, usuarios y equipo de desarrollo.
+                    
+                    4. Priorización basada en valor: Se desarrollan primero las funcionalidades que generan mayor valor.
+                    
+                    5. Desarrollo iterativo e incremental: El producto se construye en pequeñas entregas sucesivas.
+                    
+                    6. Adaptación al cambio: Los requisitos pueden ajustarse según las necesidades del proyecto.
+                    
+                    7. Entrega frecuente de valor: Se generan resultados funcionales de forma continua.
+                    """.trimIndent()
+                )
             }
         }
     }
