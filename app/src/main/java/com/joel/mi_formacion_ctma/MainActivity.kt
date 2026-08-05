@@ -139,13 +139,6 @@ fun PantallaInicio(
             ) {
 
                 Text(
-                    text = "Scrum: Valores y Principios",
-                    style = MaterialTheme.typography.titleMedium
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
                     text = """
                     ¿Qué es Scrum?
                     Scrum es un marco de trabajo ágil que permite gestionar proyectos de manera iterativa e incremental, promoviendo la colaboración, la adaptación al cambio y la entrega continua de valor.
@@ -162,21 +155,31 @@ fun PantallaInicio(
                     
                     5. Valentía: El equipo tiene la capacidad de enfrentar problemas, desafíos y cambios.
                     
-                    Principios de Scrum
+                    Principios Ágiles aplicados en Scrum
                     
-                    1. Control empírico del proceso: Las decisiones se basan en la observación, inspección y adaptación.
+                    1. Satisfacer al cliente mediante la entrega temprana y continua de software con valor.
                     
-                    2. Autoorganización: Los equipos gestionan su propio trabajo y toman decisiones de manera autónoma.
+                    2. Aceptar cambios en los requisitos, incluso en etapas avanzadas del desarrollo.
                     
-                    3. Colaboración: Se promueve el trabajo conjunto entre clientes, usuarios y equipo de desarrollo.
+                    3. Entregar software funcional frecuentemente, en períodos cortos de tiempo.
                     
-                    4. Priorización basada en valor: Se desarrollan primero las funcionalidades que generan mayor valor.
+                    4. Colaborar diariamente entre el negocio y los desarrolladores.
                     
-                    5. Desarrollo iterativo e incremental: El producto se construye en pequeñas entregas sucesivas.
+                    5. Construir proyectos alrededor de personas motivadas y brindarles apoyo.
                     
-                    6. Adaptación al cambio: Los requisitos pueden ajustarse según las necesidades del proyecto.
+                    6. Favorecer la comunicación cara a cara como el método más efectivo.
                     
-                    7. Entrega frecuente de valor: Se generan resultados funcionales de forma continua.
+                    7. Medir el progreso principalmente mediante software funcional.
+                    
+                    8. Mantener un ritmo de desarrollo sostenible a largo plazo.
+                    
+                    9. Prestar atención continua a la excelencia técnica y al buen diseño.
+                    
+                    10. Mantener la simplicidad, maximizando el trabajo que no es necesario realizar.
+                    
+                    11. Permitir que los mejores diseños y soluciones surjan de equipos autoorganizados.
+                    
+                    12. Reflexionar periódicamente para mejorar la efectividad y ajustar el comportamiento del equipo.
                     """.trimIndent()
                 )
             }
