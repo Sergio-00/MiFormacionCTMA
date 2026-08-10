@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.miformacionctma.model.*
+import com.example.miformacionctma.domain.*
 import com.example.miformacionctma.ui.theme.MiFormacionCTMATheme
 
 class MainActivity : ComponentActivity() {
@@ -63,7 +64,7 @@ class MainActivity : ComponentActivity() {
 fun PantallaInicio(resumen: String) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
+         .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(24.dp, 54.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -185,6 +186,6 @@ fun PrincipioItem(titulo: String, descripcion: String) {
 @Composable
 fun PantallaInicioPreview() {
     MiFormacionCTMATheme {
-        PantallaInicio("Urgentes: 1\\nPromedio: 73%")
+        PantallaInicio("Urgentes: 1\nPromedio: 87%")
     }
 }
