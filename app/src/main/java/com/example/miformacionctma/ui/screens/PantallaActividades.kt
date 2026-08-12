@@ -2,12 +2,16 @@ package com.example.miformacionctma.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -22,6 +26,26 @@ import com.example.miformacionctma.domain.actividadesDemo
 import com.example.miformacionctma.model.ActividadFormativa
 import com.example.miformacionctma.ui.components.TarjetaActividad
 import com.example.miformacionctma.ui.theme.MiFormacionCTMATheme
+
+@Composable
+fun ContenidoAdaptable(actividades: List<ActividadFormativa>) {
+    BoxWithConstraints {
+        if (maxWidth < 600.dp) {
+            PantallaActividades(actividades)
+        } else {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(actividades, key = { it.id }) { actividad ->
+                    TarjetaActividad(actividad)
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun PantallaActividades(

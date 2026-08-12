@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.miformacionctma.model.*
 import com.example.miformacionctma.domain.*
-import com.example.miformacionctma.ui.screens.PantallaActividades
+import com.example.miformacionctma.ui.screens.ContenidoAdaptable
 import com.example.miformacionctma.ui.theme.MiFormacionCTMATheme
 
 class MainActivity : ComponentActivity() {
@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MiFormacionCTMATheme {
                 // PantallaInicio(resumen)
-                PantallaActividades(
+                ContenidoAdaptable(
                     actividades = actividadesDemo
                 )
             }
