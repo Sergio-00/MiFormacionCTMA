@@ -1,6 +1,7 @@
-package domain
+package com.joel.mi_formacion_ctma.domain
 
-import model.*
+import com.joel.mi_formacion_ctma.model.ActividadFormativa
+import com.joel.mi_formacion_ctma.model.EstadoActividad
 
 object ReglasActividad {
     fun validarActividad(

@@ -1,4 +1,4 @@
-package model
+package com.joel.mi_formacion_ctma.model
 
 enum class EstadoActividad {
     PENDIENTE,

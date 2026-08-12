@@ -1,4 +1,4 @@
-package model
+package com.joel.mi_formacion_ctma.model
 
 data class ActividadFormativa(
     val id: Long,

@@ -1,12 +1,12 @@
 # MiFormacionCTMA
 
-## Definición inicial del producto
+## Definición Inicial del Producto
 
 ### Problema
 
 Los aprendices suelen gestionar múltiples actividades, evidencias y fechas de entrega durante su proceso formativo. Esto puede dificultar el seguimiento de compromisos importantes y aumentar el riesgo de olvidar tareas pendientes. MiFormacionCTMA busca ofrecer una solución sencilla que permita organizar actividades académicas, consultar fechas relevantes y mantener un mejor control del progreso formativo desde un dispositivo móvil.
 
-### Tipos de usuario
+### Tipos de Usuario
 
 #### Aprendiz
 
@@ -16,7 +16,7 @@ Los aprendices suelen gestionar múltiples actividades, evidencias y fechas de e
 
 **Necesidad:** Realizar seguimiento al avance de las actividades de los aprendices.
 
-### Historias de usuario
+### Historias de Usuario
 
 #### Historia 1
 
@@ -40,7 +40,9 @@ Los aprendices suelen gestionar múltiples actividades, evidencias y fechas de e
 
 **Criterio de aceptación:** Cada actividad muestra un estado identificable como pendiente o completada.
 
-## Reto adicional: Ordenamiento de actividades Semana 2
+---
+
+## Reto Adicional: Ordenamiento de Actividades (Semana 2)
 
 Se implementó un ordenamiento personalizado para las actividades aplicando varios criterios mediante un comparador.
 
@@ -50,4 +52,39 @@ El segundo criterio ordena las actividades según su prioridad, colocando primer
 
 El último criterio se aplica cuando dos actividades tienen la misma prioridad. En ese caso se ordenan por el número de días restantes (`diasRestantes`), mostrando primero las actividades con menos días disponibles, ya que tienen una fecha límite más cercana.
 
-El comparador utilizado combina `compareBy`, `thenByDescending` y `thenBy` dentro de `sortedWith` para aplicar los criterios en el orden indicado por la guia. `compareBy` establece el criterio principal, `thenByDescending` agrega un criterio secundario de forma descendente y `thenBy` agrega un último criterio ascendente si los anteriores son iguales.
+El comparador utilizado combina `compareBy`, `thenByDescending` y `thenBy` dentro de `sortedWith` para aplicar los criterios en el orden indicado por la guía. `compareBy` establece el criterio principal, `thenByDescending` agrega un criterio secundario de forma descendente y `thenBy` agrega un último criterio ascendente si los anteriores son iguales.
+
+---
+
+## Componentes, Filtrado Dinámico y Accesibilidad (Semana 3)
+
+### Arquitectura de la Solución
+
+El proyecto sigue los principios de Clean Architecture y la separación de responsabilidades en las siguientes capas:
+
+1. **Capa de Modelo (`model`):** Define entidades inmutables como `ActividadFormativa`, `Prioridad` y `EstadoActividad`.
+2. **Capa de Dominio (`domain`):** Contiene la lógica de negocio pura desacoplada de la interfaz gráfica (`ReglasActividad`).
+3. **Capa de Interfaz de Usuario (`ui`):** Organizada en `components` (`EncabezadoFormacion`, `TarjetaActividad`, `DetalleActividadDialog`) y `screens` (`PantallaActividades`), adoptando el patrón de elevación de estado (*State Hoisting*).
+
+### Funcionalidades e Interacción
+
+- **Búsqueda Dinámica:** Filtrado de actividades en tiempo real mediante `OutlinedTextField`.
+- **Filtrado por Urgencia:** Selección rápida de actividades con días restantes menores o iguales a 3 mediante `FilterChip`.
+- **Cuadrícula y Lista Adaptable:** Renderizado responsivo con `LazyColumn` o `LazyVerticalGrid` según las dimensiones de la pantalla.
+- **Detalle de Actividad:** Cuadro de diálogo modal (`AlertDialog`) activado al interactuar con cualquier tarjeta de actividad.
+
+### Pruebas Unitarias
+
+Se diseñó la suite de pruebas unitarias en `ReglasActividadTest.kt` utilizando JUnit 4 para la validación automatizada de los métodos `promedioProgreso` y `actividadesUrgentes`.
+
+### Soporte de Accesibilidad y Temas
+
+Se implementó soporte semántico para lectores de pantalla mediante modificadores de Compose, además de la adaptación automática entre **Modo Claro** y **Modo Oscuro** a través del esquema de colores centralizado en `MiFormacionCTMATheme`.
+
+---
+
+## Referencias Bibliográficas
+
+- Android Developers. (2024). *State hoisting in Jetpack Compose*. Google Developers. https://developer.android.com/develop/ui/compose/state-hoisting
+- Android Developers. (2024). *Testing in Jetpack Compose*. Google Developers. https://developer.android.com/develop/ui/compose/testing
+- Martin, R. C. (2018). *Clean Architecture: A Craftsman's Guide to Software Structure and Design*. Prentice Hall.
