@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.example.miformacionctma.domain.actividadesDemo
 import com.example.miformacionctma.model.ActividadFormativa
 import com.example.miformacionctma.ui.components.TarjetaActividad
+import com.example.miformacionctma.ui.components.SeccionPresentacion
 import com.example.miformacionctma.ui.theme.MiFormacionCTMATheme
 
 @Composable
@@ -49,9 +50,24 @@ fun ContenidoAdaptable(actividades: List<ActividadFormativa>) {
 
 @Composable
 fun PantallaActividades(
-    actividades: List<ActividadFormativa>,
-    onActividadClick: (ActividadFormativa) -> Unit = {}
+    actividades: List<ActividadFormativa>, onActividadClick: (ActividadFormativa) -> Unit = {}
 ) {
+    val urgentes = actividades.count {
+        it.progreso < 100 && it.diasRestantes <= 2
+    }
+
+    val promedio = if (actividades.isNotEmpty()) {
+        actividades.map { it.progreso }.average().toInt()
+    } else {
+        0
+    }
+
+    val resumen = buildString {
+        appendLine("Urgentes: $urgentes")
+        appendLine("Promedio: $promedio%")
+        appendLine("Actividades: ${actividades.size}")
+    }
+
     Scaffold { padding ->
 
         if (actividades.isEmpty()) {
@@ -64,19 +80,18 @@ fun PantallaActividades(
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
+                item {
+                    SeccionPresentacion(resumen)
+                }
 
                 item {
                     EncabezadoActividades(actividades)
                 }
 
                 items(
-                    items = actividades,
-                    key = { it.id }
-                ) { actividad ->
+                    items = actividades, key = { it.id }) { actividad ->
                     TarjetaActividad(
-                        actividad = actividad,
-                        onClick = { onActividadClick(actividad) }
-                    )
+                        actividad = actividad, onClick = { onActividadClick(actividad) })
                 }
             }
         }
@@ -88,25 +103,12 @@ private fun EncabezadoActividades(actividades: List<ActividadFormativa>) {
     val completadas = actividades.count { it.progreso >= 100 }
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-
-        Text(
-            text = "Mi Formación CTMA",
-            style = MaterialTheme.typography.headlineMedium
-        )
-
-        Text(
-            text = "Consulta tus actividades formativas y su progreso actual.",
-            style = MaterialTheme.typography.bodyLarge
-        )
-
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = "Resumen",
-                    style = MaterialTheme.typography.titleMedium
+                    text = "Resumen", style = MaterialTheme.typography.titleMedium
                 )
 
                 Text("Total: ${actividades.size}")
@@ -121,8 +123,7 @@ private fun EstadoVacio(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(24.dp),
-        contentAlignment = Alignment.Center
+            .padding(24.dp), contentAlignment = Alignment.Center
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
