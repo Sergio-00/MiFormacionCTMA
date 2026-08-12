@@ -5,15 +5,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.miformacionctma.domain.actividadesDemo
 import com.example.miformacionctma.model.ActividadFormativa
+import com.example.miformacionctma.ui.components.SeccionAgile
 import com.example.miformacionctma.ui.components.TarjetaActividad
 import com.example.miformacionctma.ui.components.SeccionPresentacion
 import com.example.miformacionctma.ui.theme.MiFormacionCTMATheme
@@ -50,7 +51,7 @@ fun ContenidoAdaptable(actividades: List<ActividadFormativa>) {
 
 @Composable
 fun PantallaActividades(
-    actividades: List<ActividadFormativa>, onActividadClick: (ActividadFormativa) -> Unit = {}
+    actividades: List<ActividadFormativa>
 ) {
     val urgentes = actividades.count {
         it.progreso < 100 && it.diasRestantes <= 2
@@ -62,10 +63,13 @@ fun PantallaActividades(
         0
     }
 
+    val completadas = actividades.count { it.progreso >= 100 }
+
     val resumen = buildString {
         appendLine("Urgentes: $urgentes")
         appendLine("Promedio: $promedio%")
-        appendLine("Actividades: ${actividades.size}")
+        appendLine("Completadas: $completadas")
+        appendLine("Total actividades: ${actividades.size}")
     }
 
     Scaffold { padding ->
@@ -80,18 +84,29 @@ fun PantallaActividades(
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
+
                 item {
                     SeccionPresentacion(resumen)
                 }
 
                 item {
-                    EncabezadoActividades(actividades)
+                    Spacer(modifier = Modifier.height(12.dp))
                 }
 
-                items(
-                    items = actividades, key = { it.id }) { actividad ->
-                    TarjetaActividad(
-                        actividad = actividad, onClick = { onActividadClick(actividad) })
+                item {
+                    EncabezadoActividades()
+                }
+
+                items(actividades, key = { it.id }) { actividad ->
+                    TarjetaActividad(actividad)
+                }
+
+                item {
+                    Spacer(modifier = Modifier.height(20.dp))
+                }
+
+                item {
+                    SeccionAgile()
                 }
             }
         }
@@ -99,22 +114,16 @@ fun PantallaActividades(
 }
 
 @Composable
-private fun EncabezadoActividades(actividades: List<ActividadFormativa>) {
-    val completadas = actividades.count { it.progreso >= 100 }
-
+private fun EncabezadoActividades() {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Card(modifier = Modifier.fillMaxWidth()) {
-            Column(
-                modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Text(
-                    text = "Resumen", style = MaterialTheme.typography.titleMedium
-                )
+        Text(
+            text = "Actividades Formativas", style = MaterialTheme.typography.headlineSmall
+        )
 
-                Text("Total: ${actividades.size}")
-                Text("Completadas: $completadas")
-            }
-        }
+        Text(
+            text = "Consulta tus actividades y revisa su progreso actual.",
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
 

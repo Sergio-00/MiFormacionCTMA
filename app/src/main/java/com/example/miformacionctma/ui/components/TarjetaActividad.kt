@@ -1,25 +1,24 @@
 package com.example.miformacionctma.ui.components
 
 
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.miformacionctma.ui.theme.MiFormacionCTMATheme
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.miformacionctma.model.ActividadFormativa
 import com.example.miformacionctma.model.Prioridad
+import com.example.miformacionctma.ui.theme.MiFormacionCTMATheme
 
 @Composable
 fun TarjetaActividad(
@@ -31,7 +30,8 @@ fun TarjetaActividad(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick() }
+            .clickable { onClick() },
+
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -59,8 +59,11 @@ fun TarjetaActividad(
             )
 
             LinearProgressIndicator(
-                progress = progresoSeguro / 100f,
-                modifier = Modifier.fillMaxWidth()
+            progress = { progresoSeguro / 100f },
+            modifier = Modifier.fillMaxWidth(),
+            color = ProgressIndicatorDefaults.linearColor,
+            trackColor = ProgressIndicatorDefaults.linearTrackColor,
+            strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
             )
 
             Row(

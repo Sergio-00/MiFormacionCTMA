@@ -16,33 +16,49 @@ import com.example.miformacionctma.ui.theme.MiFormacionCTMATheme
 @Composable
 fun SeccionPresentacion(resumen: String) {
     Column(
-        modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(16.dp)
+        modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
 
         Text(
             text = "Mi Formación CTMA", style = MaterialTheme.typography.headlineMedium
         )
 
-        Text("Hola, Aprendices.")
+        Text("Hola, Aprendices")
+
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text("Resumen del Sprint", style = MaterialTheme.typography.titleMedium)
+                Text(resumen.trimEnd())
+            }
+        }
+    }
+}
+
+
+@Composable
+fun SeccionAgile() {
+    Column(
+        modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
 
         Text(
-            text = "Consulta tus actividades formativas y su progreso actual:",
-            style = MaterialTheme.typography.bodyLarge
+            text = "Fundamentos Ágiles y SCRUM", style = MaterialTheme.typography.headlineSmall
         )
-
-        Text(resumen)
 
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(
                 modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text("Valores Ágiles", style = MaterialTheme.typography.titleMedium)
-                Text("• Individuos e interacciones", style = MaterialTheme.typography.bodyMedium)
-                Text("• Software funcionando", style = MaterialTheme.typography.bodyMedium)
-                Text("• Colaboración con el cliente", style = MaterialTheme.typography.bodyMedium)
-                Text("• Respuesta al cambio", style = MaterialTheme.typography.bodyMedium)
+                Text("• Individuos e interacciones")
+                Text("• Software funcionando")
+                Text("• Colaboración con el cliente")
+                Text("• Respuesta al cambio")
             }
         }
+
 
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(
@@ -96,8 +112,7 @@ fun SeccionPresentacion(resumen: String) {
                 )
 
                 PrincipioItem(
-                    "10. Simplicidad",
-                    "Hacer solo lo necesario evita trabajo innecesario."
+                    "10. Simplicidad", "Hacer solo lo necesario evita trabajo innecesario."
                 )
 
                 PrincipioItem(
