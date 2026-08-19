@@ -151,7 +151,8 @@ private fun EstadoVacio(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Actividades normales",
+    showBackground = true)
 @Composable
 private fun PantallaActividadesPreview() {
     MiFormacionCTMATheme {
@@ -159,10 +160,22 @@ private fun PantallaActividadesPreview() {
     }
 }
 
-@Preview(showBackground = true, widthDp = 700)
+@Preview(name = "Actividades anchas",
+    showBackground = true, widthDp = 700)
 @Composable
 private fun PantallaActividadesPreviewAncha() {
     MiFormacionCTMATheme {
         PantallaActividades(actividadesDemo)
+    }
+}
+
+@Preview(
+    name = "Estado vacío",
+    showBackground = true
+)
+@Composable
+private fun EstadoVacioPreview() {
+    MiFormacionCTMATheme {
+        EstadoVacio()
     }
 }

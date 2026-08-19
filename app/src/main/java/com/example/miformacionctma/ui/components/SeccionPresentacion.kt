@@ -1,5 +1,6 @@
 package com.example.miformacionctma.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,9 +10,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.miformacionctma.ui.theme.MiFormacionCTMATheme
+import com.example.miformacionctma.R
 
 @Composable
 fun SeccionPresentacion(resumen: String) {
@@ -24,6 +27,14 @@ fun SeccionPresentacion(resumen: String) {
         )
 
         Text("Hola, Aprendices")
+
+        Image(
+            painter = painterResource(id = R.drawable.ilustracion_formacion),
+            contentDescription = "Ilustración relacionada con la formación y el estudio",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+        )
 
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(
@@ -142,7 +153,12 @@ private fun PrincipioItem(titulo: String, descripcion: String) {
 private fun SeccionPresentacionPreview() {
     MiFormacionCTMATheme {
         SeccionPresentacion(
-            resumen = "Urgentes: 1\nPromedio: 87%"
+            resumen = """
+                Urgentes: 2
+                Promedio: 76.7%
+                Completadas: 1
+                Total actividades: 3
+            """.trimIndent()
         )
     }
 }
