@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
@@ -37,6 +38,7 @@ import com.joel.mi_formacion_ctma.model.ActividadFormativa
 import com.joel.mi_formacion_ctma.model.DatosEjemplo
 import com.joel.mi_formacion_ctma.ui.components.DetalleActividadDialog
 import com.joel.mi_formacion_ctma.ui.components.EncabezadoFormacion
+import com.joel.mi_formacion_ctma.ui.components.SeccionScrum
 import com.joel.mi_formacion_ctma.ui.components.TarjetaActividad
 
 @Composable
@@ -126,6 +128,11 @@ fun PantallaActividades(
                             verticalArrangement = Arrangement.spacedBy(12.dp),
                             horizontalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
+                            // Muestra la Sección Scrum ocupando ambas columnas
+                            item(span = { GridItemSpan(2) }) {
+                                SeccionScrum()
+                            }
+
                             items(
                                 items = actividadesFiltradas,
                                 key = { actividad -> actividad.id }
@@ -144,6 +151,7 @@ fun PantallaActividades(
                             contentPadding = PaddingValues(bottom = 16.dp),
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
+
                             items(
                                 items = actividadesFiltradas,
                                 key = { actividad -> actividad.id }
@@ -155,6 +163,11 @@ fun PantallaActividades(
                                         onActividadClick(actividad)
                                     }
                                 )
+                            }
+
+                            // Muestra la Sección Scrum arriba de las actividades
+                            item {
+                                SeccionScrum()
                             }
                         }
                     }

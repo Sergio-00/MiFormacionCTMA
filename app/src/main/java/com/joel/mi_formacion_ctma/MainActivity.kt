@@ -21,26 +21,26 @@ class MainActivity : ComponentActivity() {
         val actividades = listOf(
             ActividadFormativa(
                 id = 1,
-                titulo = "Clase de Wilson 1 porque solo Wilson da clases",
-                descripcion = "Variables y funciones",
-                progreso = 40,
-                diasRestantes = 5,
-                prioridad = Prioridad.MEDIA
+                titulo = "Guía 1: Modelado e Inicio Android",
+                descripcion = "Variables, colecciones y reglas de negocio",
+                progreso = 100,
+                diasRestantes = 0,
+                prioridad = Prioridad.ALTA
             ),
             ActividadFormativa(
                 id = 2,
-                titulo = "Clase de Wilson 2",
-                descripcion = "Android Studio",
-                progreso = 90,
-                diasRestantes = 3,
-                prioridad = Prioridad.BAJA
+                titulo = "Guía 2: Lógica Kotlin y Pruebas",
+                descripcion = "POO, data classes y pruebas unitarias con JUnit",
+                progreso = 100,
+                diasRestantes = 0,
+                prioridad = Prioridad.MEDIA
             ),
             ActividadFormativa(
                 id = 3,
-                titulo = "Programación Orientada a Objetos",
-                descripcion = "Clases y objetos",
-                progreso = 100,
-                diasRestantes = -1,
+                titulo = "Guía 3: Interfaces con Jetpack Compose",
+                descripcion = "UI declarativa, Material 3 y accesibilidad",
+                progreso = 40,
+                diasRestantes = 3,
                 prioridad = Prioridad.ALTA
             )
         )
@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
 }
 
 // ==========================================
-// PREVIEWS DE ACCESIBILIDAD Y TEMAS
+// PREVIEWS
 // ==========================================
 
 @Preview(
