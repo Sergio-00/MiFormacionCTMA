@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,9 +16,14 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,6 +59,16 @@ fun ContenidoAdaptable(actividades: List<ActividadFormativa>) {
 fun PantallaActividades(
     actividades: List<ActividadFormativa>
 ) {
+    // Estado para rastrear el texto de búsqueda
+    var textoBusqueda by remember { mutableStateOf("") }
+
+    // Filtrado dinámico por título o descripción
+    val actividadesFiltradas = actividades.filter { actividad ->
+        val coincideTitulo = actividad.titulo.contains(textoBusqueda, ignoreCase = true)
+        val coincideDescripcion = actividad.descripcion?.contains(textoBusqueda, ignoreCase = true) ?: false
+        coincideTitulo || coincideDescripcion
+    }
+
     val urgentes = actividades.count {
         it.progreso < 100 && it.diasRestantes <= 2
     }
@@ -97,8 +113,30 @@ fun PantallaActividades(
                     EncabezadoActividades()
                 }
 
-                items(actividades, key = { it.id }) { actividad ->
-                    TarjetaActividad(actividad)
+                // Componente de la Barra de Búsqueda
+                item {
+                    OutlinedTextField(
+                        value = textoBusqueda,
+                        onValueChange = { textoBusqueda = it },
+                        label = { Text("Buscar actividad...") },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true
+                    )
+                }
+
+                // Evaluación de la lista filtrada
+                if (actividadesFiltradas.isEmpty()) {
+                    item {
+                        Text(
+                            text = "No se encontraron coincidencias para \"$textoBusqueda\"",
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(vertical = 16.dp)
+                        )
+                    }
+                } else {
+                    items(actividadesFiltradas, key = { it.id }) { actividad ->
+                        TarjetaActividad(actividad)
+                    }
                 }
 
                 item {
