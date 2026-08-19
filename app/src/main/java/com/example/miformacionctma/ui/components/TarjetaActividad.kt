@@ -1,0 +1,161 @@
+package com.example.miformacionctma.ui.components
+
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ProgressIndicatorDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.miformacionctma.model.ActividadFormativa
+import com.example.miformacionctma.model.Prioridad
+import com.example.miformacionctma.ui.theme.MiFormacionCTMATheme
+
+@Composable
+fun TarjetaActividad(
+    actividad: ActividadFormativa,
+    onClick: () -> Unit = {}
+) {
+    val progresoSeguro = actividad.progreso.coerceIn(0, 100)
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() },
+
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+
+            Text(
+                text = actividad.titulo,
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            actividad.descripcion?.let { descripcion ->
+                Text(
+                    text = descripcion,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            // Estado de la actividad
+            EstadoActividad(progresoSeguro)
+
+            Text(
+                text = "Progreso: $progresoSeguro%",
+                style = MaterialTheme.typography.bodyMedium
+            )
+
+            LinearProgressIndicator(
+            progress = { progresoSeguro / 100f },
+            modifier = Modifier.fillMaxWidth(),
+            color = ProgressIndicatorDefaults.linearColor,
+            trackColor = ProgressIndicatorDefaults.linearTrackColor,
+            strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Prioridad: ${textoPrioridad(actividad.prioridad)}",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+
+                Text(
+                    text = "${actividad.diasRestantes} días restantes",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+    }
+}
+
+private fun textoPrioridad(prioridad: Prioridad): String {
+    return when (prioridad) {
+        Prioridad.BAJA -> "Baja"
+        Prioridad.MEDIA -> "Media"
+        Prioridad.ALTA -> "Alta"
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TarjetaActividadPreviewNormal() {
+    MiFormacionCTMATheme {
+        TarjetaActividad(
+            ActividadFormativa(
+                id = 1L,
+                titulo = "Kotlin básico",
+                descripcion = "Repasar funciones y clases",
+                progreso = 65,
+                diasRestantes = 3,
+                prioridad = Prioridad.ALTA
+            )
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+private fun TarjetaActividadPreviewTituloLargo() {
+    MiFormacionCTMATheme {
+        TarjetaActividad(
+            ActividadFormativa(
+                id = 2L,
+                titulo = "Validar títulos extremadamente largos dentro de una tarjeta reutilizable de actividades para Compose",
+                descripcion = "Comprobar que el diseño no se rompa con textos extensos",
+                progreso = 20,
+                diasRestantes = 7,
+                prioridad = Prioridad.MEDIA
+            )
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TarjetaActividadPreviewCompletada() {
+    MiFormacionCTMATheme {
+        TarjetaActividad(
+            ActividadFormativa(
+                id = 3L,
+                titulo = "Actividad completada",
+                descripcion = "Debe mostrar el estado Completada",
+                progreso = 100,
+                diasRestantes = 0,
+                prioridad = Prioridad.MEDIA
+            )
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TarjetaActividadPreviewSinIniciar() {
+    MiFormacionCTMATheme {
+        TarjetaActividad(
+            ActividadFormativa(
+                id = 4L,
+                titulo = "Actividad pendiente",
+                descripcion = "Debe mostrar el estado Pendiente",
+                progreso = 0,
+                diasRestantes = 10,
+                prioridad = Prioridad.BAJA
+            )
+        )
+    }
+}
